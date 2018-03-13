@@ -23,12 +23,14 @@ Has two functions:  Both are wrappers for equivilantly named global functions at
 Has a: 
   - int order: number of layers
   - array of Agents of size 2^order
+
 Has 7 functions: 
   - initializetree: set environment variables for each node on layer N
   - resolvetree: recursively (currently) resolve any node based on the resolution of it's children
   - updatetree: call update() on each of the Agent nodes
   - left, right and parent: implementing Ahnentafel implicit binary structure on arrays
   - enumerate: print state of the tree array
+
 The environment is a control and management system that maintains an implicit binary tree as an array, using Ahnentafel (aka Eytzinger's method)\ 
 It operates in an Evaluate-Iterate cycle:\
 Evaluate: play a sample through the network and recording the outcome with resolvetree, check it against the proper outcome, and determine an appropriate reward\
