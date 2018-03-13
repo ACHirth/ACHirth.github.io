@@ -43,7 +43,7 @@ Iterate: progress through the network and update policy based on reward and acti
 ## Example
 Example training a single node to represent AND:
 
-1. Agent nodes begin zeroed out:\
+1. Agent nodes begin zeroed out:  
 ![image](./images/inode.png)
 2. For training samples 00, 01, and 10:
   - Policy:0 properly evaluates to 0
@@ -55,7 +55,7 @@ Example training a single node to represent AND:
   - Next iteration will see reward = 0 and update the bit index corresponding with the inputs
   - Evaluate cycle 2 returns with a reward of 1
   - Next iteration will not modify state
-4. Final state has, in a sense, converged:\
+4. Final state has, in a sense, converged:  
 ![image](./images/andnode.png)
 
 The current implementation properly replicates this! (3/12/2018)\
