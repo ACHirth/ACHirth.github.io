@@ -1,10 +1,10 @@
 # Abstract Structure - Outdated
 Consists of two structures, Agent and Environment
 ## Agent
-A standard perceptron is generally represented by:\
+A standard perceptron is generally represented by:  
 ![image](./images/perceptron.png)\
 \
-My binary perceptron is significantly simplified:\
+My binary perceptron is significantly simplified:  
 ![image](./images/bperceptron.png)\
 \
 Represents a single node. \
