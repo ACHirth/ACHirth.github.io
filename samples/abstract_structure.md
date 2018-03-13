@@ -28,10 +28,10 @@ Has 7 functions:
   - initializetree: set environment variables for each node on layer N
   - resolvetree: recursively (currently) resolve any node based on the resolution of it's children
   - updatetree: call update() on each of the Agent nodes
-  - left, right and parent: implementing Ahnentafel implicit binary structure on arrays
+  - left, right and parent: index of other nodes relative to any node i 
   - enumerate: print state of the tree array
 
-The environment is a control and management system that maintains an implicit binary tree as an array, using Ahnentafel (aka Eytzinger's method)\ 
+The environment is a control and management system that maintains an implicit binary tree as a level order array
 It operates in an Evaluate-Iterate cycle:\
 Evaluate: play a sample through the network and recording the outcome with resolvetree, check it against the proper outcome, and determine an appropriate reward\
 Iterate: progress through the network and update policy based on reward and actions of previous evaluate with updatetree.\
