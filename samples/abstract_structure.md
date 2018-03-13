@@ -1,10 +1,10 @@
 # Abstract Structure - Outdated
 Consists of two structures, Agent and Environment
 ## Agent
-A standard perceptron is generally represented by:\
+A standard perceptron is generally represented by:  
 ![image](./images/perceptron.png)\
 \
-My binary perceptron is significantly simplified:\
+My binary perceptron is significantly simplified:  
 ![image](./images/bperceptron.png)\
 \
 Represents a single node. \
@@ -31,16 +31,26 @@ Has 7 functions:
   - left, right and parent: index of other nodes relative to any node i 
   - enumerate: print state of the tree array
 
+<<<<<<< HEAD
 The environment is a control and management system that maintains an implicit binary tree as a level order array
 It operates in an Evaluate-Iterate cycle:\
 Evaluate: play a sample through the network and recording the outcome with resolvetree, check it against the proper outcome, and determine an appropriate reward\
 Iterate: progress through the network and update policy based on reward and actions of previous evaluate with updatetree.\
+=======
+The environment is a control and management system that maintains an implicit binary tree as an array, using Ahnentafel (aka Eytzinger's method)
+
+It operates in an Evaluate-Iterate cycle:
+
+Evaluate: play a sample through the network and recording the outcome with resolvetree, check it against the proper outcome, and determine an appropriate reward
+
+Iterate: progress through the network and update policy based on reward and actions of previous evaluate with updatetree.
+>>>>>>> 4aa663113b3dc7fb1124d2e89758b5502c9f8e3a
 
 
 ## Example
 Example training a single node to represent AND:
 
-1. Agent nodes begin zeroed out:\
+1. Agent nodes begin zeroed out:  
 ![image](./images/inode.png)
 2. For training samples 00, 01, and 10:
   - Policy:0 properly evaluates to 0
@@ -52,7 +62,7 @@ Example training a single node to represent AND:
   - Next iteration will see reward = 0 and update the bit index corresponding with the inputs
   - Evaluate cycle 2 returns with a reward of 1
   - Next iteration will not modify state
-4. Final state has, in a sense, converged:\
+4. Final state has, in a sense, converged:  
 ![image](./images/andnode.png)
 
 The current implementation properly replicates this! (3/12/2018)\
