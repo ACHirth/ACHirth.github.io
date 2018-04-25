@@ -41,3 +41,18 @@
   Test data should consist of up to 2^order samples in the format: {2^order bools/bits of input data, 1 bool/bit of correct answer}
   Is it possible to cut off the "top" of the tree to produce a result consisting of more than 1 bit?
 
+## Week 10
+ The dynamic array issue has been solved, but anothe rhas shown itself. The previous "success" with three-node trees were not truly converging, but stabilized at four updates per cycle. Without true convergence, (zero updates), the model will be inaccurate for those particular inputs. 
+
+## Week 12
+ Attempt to solve convergence issue with different update pattern. Instead of updating all agents in the tree at once, attempt to update by level, starting from level zero. The idea behind this is that the fewer changes required, the better, so start with the root node. Alternatively to this, changing the root node has the largest impact on the tree as a whole, so updating leaves first may be better.
+ Neither method bore fruit. But they both reduced the convergence delta from four to two, which may be indicative of an improvement. 
+
+## Week 13
+ Attempt two to solve convergence issue. This time with an update of each agent uniquely, sequentially, and checking the result after each individual update. Once again starts from the root node and loops through each agent, one at a time, before starting again. This method returned the convergence delta to 4. 
+ While this may seem like a less optimal solution than the previous due to this, both methods are equally worthless without a delta of zero. 
+
+## Week 14
+ Split of effort: 
+ 1. Continue with previous week's one by one strategy, this time from the leaf nodes first. Expected little change from other ordering. Look into resetting tree before update cycle, and procedurally update 1, 2, 3, etc agents until the entire tree is updated. 
+ 2. Research other methods of convergence with simple actors. Looking into elementary cellular automata has resulted in iffy results, due to the difficulty in translating cellular automata structure to the agent network's. Upcoming focus will look to swarm intelligence strategies for potential solutions. 

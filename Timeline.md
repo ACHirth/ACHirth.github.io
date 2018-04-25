@@ -1,4 +1,20 @@
 # Timeline
+## Schedule: Iteration 4
+
+* Week 1-2: Research history and implementation of binary neural networks and their effectiveness to date
+* Week 3: Design top level program structure
+* Week 4: Implement top level structure with high abstraction in C++
+* Week 5: Debug AgentV1 and design test and use environment
+* Week 6: Rewrite of Agent using std::bitset
+* Week 7: Write Environment 
+* Week 8-10: Complete Implementation, empirical tests
+* Week 12-13: New issue found with environment: Try different update algorithms
+* Week 14-15: Research potential solution, following elementary cellular automata research
+* Week 16-17: Find and implement update solution, test empirically. 
+* Week 18-19: Organize past work for presentation, formal paper
+* Week 20: Present findings
+
+# Timeline
 ## Schedule: Iteration 3
 
 * Week 1-2: Research history and implementation of binary neural networks and their effectiveness to date

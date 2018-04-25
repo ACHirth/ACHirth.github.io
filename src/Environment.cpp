@@ -10,7 +10,7 @@ using namespace std;
  * Composes Agents into a binary tree with a heap ordered array.
  * Each layer propogates it's results forward or up the tree. 
  * Tree type: Complete implicit binary tree;
- * To do: Switch to dynamic array of agents. 
+ * To do:
  * 	create and generalize for map of bools for input.  
  */
 #define torder 5
@@ -18,14 +18,17 @@ using namespace std;
 class Environment{ 
 	public:
 	bool reward = 0; //start with global
-	int order = 2; 
-	int nagents = 4; //2^order
-	Agent agents[4]; 
+	int order = 2; 	//number of levels
+	int nagents = 4; //2^order, 3 agents + 0 index
+	//Agent agents[4]; 
+	vector<Agent> agents = vector<Agent>(4);
 	
 	Environment() {}
 
 	Environment(int order) : order(order){
 		nagents = 1 << order;
+		agents = vector<Agent>(nagents);
+		
 		
 	}
 
@@ -41,7 +44,8 @@ class Environment{
 	}
 	// from an array of nagents bool inputs,
 	// initialize the environments for the layer N nodes.  
-	void initializetree(bool inputs[]){
+	// size of inputs must be == 2N
+	void initializetree(vector<bool> inputs){
 		for(int i = nagents/2; i < nagents; i++){
 			agents[i].environment[0] = inputs[2*(i - nagents/2)];
 			agents[i].environment[1] = inputs[2*(i - nagents/2) + 1];
@@ -71,6 +75,22 @@ class Environment{
 		}
 		return delta;
 	}
+	
+	//same as above, except only updates a single level. 
+	//each level goes from 2^level to 2^level+1 - 1
+	int updatetree(bool reward, int level){
+		int delta = 0;
+		int start = 1 << level;
+		int end = 1 << (level+1);
+		for(int i = start; i < end; i++) { 
+			delta += agents[i].update(reward); 
+		}
+		return delta;
+	}
+
+	int updateagent(bool reward, int index){
+		return agents[index].update(reward);
+	}
 
 
 };
@@ -85,30 +105,44 @@ int main(){
 	cout << "done" << endl;
 	*/
 	e.enumerate();
-
-	bool inputs[16][4] = {
+	// Inputs is of size 16 by 4 atm, or 2^N by N where N is 2^order
+	vector<vector<bool>> inputs = {
 		{0, 0, 0, 0}, {0, 0, 0, 1}, {0, 0, 1, 0}, {0, 0, 1, 1},
 		{0, 1, 0, 0}, {0, 1, 0, 1}, {0, 1, 1, 0}, {0, 1, 1, 1},
 		{1, 0, 0, 0}, {1, 0, 0, 1}, {1, 0, 1, 0}, {1, 0, 1, 1},
 		{1, 1, 0, 0}, {1, 1, 0, 1}, {1, 1, 1, 0}, {1, 1, 1, 1}};
 
-	int delta = 1;
+	int delta = 0;
 	bool answers[16] = {1, 1, 1, 0,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1};  
 	bool reward = 0; 
-	bool result = 1; 
+	bool result = 1;
+	int level = 0;
+	int index = 0;
+	int tdelta = 4;
+while(tdelta > 0){
+	tdelta = 0;
 	for(int i = 0; i < 16; i++){
 		e.initializetree(inputs[i]); //NEW SAMPLE
-		cout << "inputs: " << inputs[i][0] << ", " << inputs[i][1] << ", " << inputs[i][2] << ", " << inputs[i][3] << endl;
+		//cout << "inputs: " << inputs[i][0] << ", " << inputs[i][1] << ", " << inputs[i][2] << ", " << inputs[i][3] << endl;
 		delta = 1;
+		//level = 0;
+		index = 0;
 		while(delta > 0){	//CORE LOOP: LOOP UNTIL NO CHANGES
 			result = e.resolvetree(1);	//EVALUATE
-			cout << "result: " << result << endl;
+			//cout << "result: " << result << endl;
 			reward = (result == answers[i]);	// CHECK EVALUATE RESULT
-			delta = e.updatetree(reward);	//ITERATE
-			cout << "delta: " << delta << endl;
+			//delta = e.updatetree(reward, level);	//ITERATE
+			delta = e.updateagent(reward, index); //index mod nagents-1 + 1 to skip zero index
+			//level++;
+			//level = level % 2;	// progress through levels
+			index = index % 3 + 1;
+			tdelta += delta;
+			//cout << "delta: " << delta << endl;
 		}
 	}
+	cout << "tdelta: " << tdelta << endl;
+	e.enumerate();
+}
 	
 	e.enumerate();
-
 }
