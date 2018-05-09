@@ -8,8 +8,8 @@
   I hope to find a way to evade these pitfalls.
 
 ## Week 3
-  I've realized a number of issues with my initial idea, and have attempted to remedy them. \
-    The most prominent is that of the two-input structure, where reward was taken from another agent. This caused agents to simply choose to pass along the reward instead of producing any computation. It made the basic logic gate more than a one-agent structure. \
+  I've realized a number of issues with my initial idea, and have attempted to remedy them.  
+    The most prominent is that of the two-input structure, where reward was taken from another agent. This caused agents to simply choose to pass along the reward instead of producing any computation. It made the basic logic gate more than a one-agent structure.  
   I have settled on an initial draft iteration of my program structure, in the form of an agent - environment split. 
   The agent is in the form of a single node, with three inputs and one output. It contains a flag and a policy as state, in the form of a bit and a char. 
   Nodes have access to two functions, resolve and update. Resolve returns the action the agent would take given a particular pair of inputs and a policy. Update changes the policy of the node based on the previous iteration's reward.
