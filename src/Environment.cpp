@@ -118,7 +118,7 @@ int main(){
 	bool result = 1;
 	int level = 0;
 	int index = 0;
-	int tdelta = 4;
+	int tdelta = 1;
 while(tdelta > 0){
 	tdelta = 0;
 	for(int i = 0; i < 16; i++){
@@ -135,7 +135,7 @@ while(tdelta > 0){
 			delta = e.updateagent(reward, index); //index mod nagents-1 + 1 to skip zero index
 			//level++;
 			//level = level % 2;	// progress through levels
-			index = index % 3 + 1;
+			index = (index + 1) % 3 + 1;
 			tdelta += delta;
 			//cout << "delta: " << delta << endl;
 		}

@@ -81,3 +81,14 @@
   One thing I'd like to point out is how directly in opposition my structure is with regards to standard neural network algorithms. Most of them are fundamentally reliant on reducing percentages in order to be provably convergent. By guaranteeing that in every case or on average, the error of the network will be reduced with each iteration, the algorithm can be relied on to eventually converge to a stable error value.   
   Due to the intentional removal of fractional calculations, it may not be possible for my attempt here to be provably convergent. It seems like there is a very high likelihood that policy updates will oscillate, or flicker back and forth between two close-to-but-not-quite-optimal policies. I intend to look into binary representations of fractional numbers in order to possibly achieve a stable network state. 
 
+## Week 17
+ After reading some new references (to be added to sources), I have two different things to work on:  
+ Attempt to test my model with the established proof of perceptron networks. If I can reconcile the two models, it may be an effective way to prove or disprove the effectiveness of the modified version. This also involves figuring out if some problems are actually solvable, like the xor issue with a one-layer perceptron. 
+ Go back and document the effectiveness of various types of update patterns. This seems like the less valuable result, since it may be possible to derive effectiveness from a proof of validity.  
+ I am hesitant to increase the size of each agent, however it may be necessary.   
+ "randomly selecting your way into a correct answer is not machine learning" (paraphrased)  
+ It may be required to increase the scope of each agent to represent its history, not simply its most recent modification.  
+ In the same vein, the "test all possible update patterns" solution option is also not learning any more, and far too computationally expensive to consider.  
+ I'll be moving forward with trying to prove my model in the pattern of the [neuron.dvi paper]  
+
+
