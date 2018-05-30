@@ -91,4 +91,48 @@
  In the same vein, the "test all possible update patterns" solution option is also not learning any more, and far too computationally expensive to consider.  
  I'll be moving forward with trying to prove my model in the pattern of the [neuron.dvi paper]  
 
+## Week 18
+ Started with an attempt to model the truth function node within the linear pattern of the classical perceptron formula: w1x1 + w2x2 >= threshold.  
+ It is proven that xor is not modelable by this linear formula due to it's lack of linear separability.  
+ The proof of theestablished perceptron formula's converge is based on the number of updates required to reach termination.  
+ It details an angular representation, gradually moving the line that the formula represents closer to the true formula.  
+ It shows that since the angle between the current and the target line is a function of the number of iterations of the formula, defined by t, and is a reducing term, the number of iterations is bounded on some number due to the termination condition.  
+ However, this linear representation is not sufficient for the boolean function node, due to its capability to set itself to an xor term.  
+ When interpreted as a function of boolean variables, the linear function used above mimics a conjunctive normal form, and lacks enough expressions to represent even a minimized form of xor, making it unsuitable as a representation method.  
+ The cnf for xor has a whole rabbit hole that I chose not to follow, starting with a "tseytin transformation".  
+ However, boolean algebra as a whole could be a good way to represent the function that the tree is intended to represent.  
+ 
+
+## Week 19
+ To attempt to track update cycles, in the same vein as counting iterations for the perceptron proof method, a more rigorous definition of policy transformation is required.  
+ A policy is a 4bit value representing a boolean function on two variables. An update consists of flipping a single bit in that boolean function, causing the policy to represent a different, adjacent formula.  
+ Adjacent in this context is defined by a policy that has one bit difference from another policy. In the context of a boolean function, it's return value is only different for one of the four possible pairs of inputs.  
+ For example, False(0000) is adjacent to AND(1000), and NOR(0001), but not XOR(0110).  
+ Can be represented with a graph, of 16 vertices, each with an edge connecting it to one if its four adjacent formulas.  
+ For the termination condition, in the original perceptron method, the updates would stop when the approximated function is "close enough" to the target function, compared as the error relative to a threshold. That is, if the error is low enough, termination ends, and the updated weights are the same as the previous weights, causing the weights at time t+1 to be equal to those at t.  
+ Similarly, update cycles for the boolean function node terminates when the error is at zero, or the function represented by the tree accurately represents the function of the input variables.  
+ It follows that to guarantee termination, there must exist a configuration of the tree that represents the function defined by the input variables for the error to equal zero, and the termination to be guaranteed.  
+ In the context of the single node tree, the claim is that for any sample of two input variables and one output variable, there exists 8 two arity boolean functions that return the desired output given the input. The total number of patterns of two inputs to one boolean output is 2^4 = 16, which matches the number of boolean functions.  
+ When extended to four arity functions, the total number of distinct sets of 4 boolean variables is 2^4, so the total number of patterns of possible inputs to outputs for four arity boolean functions is 2^2^4, or 2^16. This pattern has been previously documented in a variety of settings.  
+ When represented as a boolean algebra, with boolean inputs {A, B, C, D} as the environment variables, and two arity boolean functions {f1, f2, f3} as the policy:  
+ the resolution of the three-node tree is represented by the boolean expression:  
+ (A f1 B) f2 (C f3 D)  
+ Now the goal is to construct a boolean expression of three two-arity boolean functions and four variables that satisfies the four-arity boolean function represented by a complete set of input data (16 entries of 0 or 1, for each of the 16 possible combinations of 4 boolean variables).  
+ Importantly, the ordering of the input variables A-D is unmodified due to the way they are "loaded" into the tree and the functions f1-f3 can be any of the 16 two-arity boolean functions.  
+ I had no reason to believe that this format, using any of the two-arity boolean functions applied to each of the input variables, would be incapable of representing all of the four-arity boolean functions.  
+ However there a number of problems with the idea.  
+ The indicator was the number of a functions of that format. Since the variables' positions are set, the number of permutations is given by the number of options for each of the functions: or 16^3.  
+ This is equal to 2^12, and obviously less than 2^16.  
+ This indicates that there are significantly fewer unique functions of the tree's format than there are unique boolean functions of four variables.  
+ Therefore it is not possible to represent each of the four arity boolean functions with a boolean expression of the tree's format.  
+ Additionally, in the tree's format, variables on the left side of the function can never be compared to variables on the right side of the function except as a component of a function with the other variable on its side, and vice versa.   
+ This is due to not only the ordering of the variables, but the parenthesization format. Both of these are intrinsic to the current design of the tree structure, but further research into the other options for these formats could allow the format to represent all 2^16 functions.  
+ Interestingly, a function of four boolean functions has a number of permutations equal to 16^4, or 2^16, exactly equal to our desired number. But how would one construct a valid boolean expression from four variables and four two-arity boolean functions?   
+ All this is closely related to a field known as logic synthesis. It is the study of minimized digital logic expressions and generating them from other functions and complete input/expected output sets. Simple boolean algebra expressions can be minimized and generated by the karnaugh map method, and more reasonably with computers by the quine-mccluskey algorithm.  
+ But the quine-mcclusckey algorithm grows on an order of 3^n(ln(n)) with the number of input variables n, making it an unreasonable function in practice.  
+ The Espresso heuristic logic minimizer method came after in 1995, significantly reducing the computation time required, but at the cost of rarely producing a sub-optimal result (a function that is not completely minimized).  
+ Additional methods or tools were produced, like UC berkeley's SIS, UCLA's RASP, and UC boulder's BOLD. Research on these ended around 2004 and the study of logic synthesis left the academic scene.  
+ Digital circuit design companies picked up the study as a component of electronic design automation and at least partially disappeared from public domain.  
+
+
 
